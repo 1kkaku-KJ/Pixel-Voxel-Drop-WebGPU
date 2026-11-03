@@ -600,26 +600,6 @@ class PixelVoxelDrop {
     }
   }
 
-  syncPhysicsToMesh () {
-    let needsUpdate = false;
-    const isReversing = this.state === STATES.REVERSING;
-
-    for (let i = 0; i < this.rigidBodies.length; i++) {
-      const rb = this.rigidBodies[ i ];
-      if (!rb.isSleeping() || isReversing) {
-        const pos = rb.translation();
-        const rot = rb.rotation();
-        this.updateTextureData(i, pos, rot);
-        needsUpdate = true;
-      }
-    }
-
-    if (needsUpdate) {
-      this.posTexture.needsUpdate = true;
-      this.quatTexture.needsUpdate = true;
-    }
-  }
-
   checkAndDropBlocks () {
     if (!this.tslUniforms || !this.tslUniforms.uVoxelateProgress) return;
     const currentProgress = this.tslUniforms.uVoxelateProgress.value;
